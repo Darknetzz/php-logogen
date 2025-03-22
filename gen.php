@@ -3,7 +3,7 @@ require_once("includes/_includes.php");
 
 $image = createImage($height, $width, $background, $border);
 $image = addBorder($image, $border, $border_color);
-$image = addText($image, $font, $text, $font_size, $color);
+$image = addText($image, $font, $text, $font_size, $color, $angle);
 
 if (isset($_GET['debug'])) {
     $debug = True;
