@@ -61,9 +61,16 @@
                             <span class="input-row-name"><label class="form-label mt-3" for="text">Text:</label></span>
                             <span class="input-row-input">
                                 <textarea class="form-control mt-2" name="text" id="text" rows="3" placeholder="<?= $defaults["text"] ?>"></textarea>
-                                <input type="number" name="angle" id="angle" class="form-control mt-2" placeholder="Angle (degrees)" value="<?= $defaults["angle"] ?>">
                             </span>
                         </div>
+
+                        <div class="mb-3 input-row">
+                            <span class="input-row-name"><label class="form-label mt-3" for="angle">Angle:</label></span>
+                            <span class="input-row-input">
+                                    <input type="number" class="form-control" name="angle" id="angle" value="<?= $defaults["angle"] ?>">
+                            </span>
+                        </div>
+
 
 
                         <div class="mb-3 input-row">

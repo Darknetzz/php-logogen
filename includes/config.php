@@ -43,11 +43,6 @@ $fonts     = recursiveScan($font_path);
 if (empty($fonts)) {
     die("No fonts found in $font_path");
 }
-$font_dropdown = "";
-foreach ($fonts as $font) {
-    $font_name = str_replace(".ttf", "", basename($font));
-    $font_dropdown .= "<option value=\"$font\">$font_name</option>";
-}
 
 $defaults = [
         "width"        => 250,
@@ -60,9 +55,18 @@ $defaults = [
         "color"        => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
         "border"       => 0,
         "border_color" => $default_color,
-        "font"         => $fonts[0],
+        "font"         => $fonts[mt_rand(0, count($fonts) - 1)],
         "font_size"    => 30,
 ];
+$font_dropdown = "";
+foreach ($fonts as $font) {
+    if ($defaults['font'] == $font) {
+        $font_dropdown .= "<option value=\"$font\" selected>$font</option>";
+        continue;
+    }
+    $font_name = str_replace(".ttf", "", basename($font));
+    $font_dropdown .= "<option value=\"$font\">$font_name</option>";
+}
 
 $width        = isset($_GET['width']) ? $_GET['width'] : $defaults['width'];
 $height       = isset($_GET['height']) ? $_GET['height'] : $defaults['height'];
