@@ -148,6 +148,9 @@
 
 <script>
 $(document).ready(function() {
+    $("#logogenform").on("input", function() {
+        $("#generateBtn").click();
+    });
     $("#generateBtn").click(function() {
         const defaults     = <?= json_encode($defaults) ?>;
         var   width        = $("#width").val() || defaults.width;
@@ -198,12 +201,14 @@ $(document).ready(function() {
     $(".randomize-color").click(function() {
         const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
         $(this).prev("input").val(randomColor);
+        $("#generateBtn").click();
     });
 
     $(".randomize-all").click(function() {
         $(".randomize-color").each(function() {
             const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
             $(this).prev("input").val(randomColor);
+            $("#generateBtn").click();
         });
     });
         
