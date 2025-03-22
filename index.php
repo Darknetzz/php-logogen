@@ -158,7 +158,7 @@ $(document).ready(function() {
         var   font_size    = $("#font_size").val() || defaults.font_size;
         var   background   = $("#background").val() || defaults.background;
         var   color        = $("#color").val() || defaults.color;
-        var   border       = $("#border").checked || defaults.border;
+        var   border       = $("#border").val() || defaults.border;
         var   border_color = $("#border_color").val() || defaults.border_color;
         const data         = {
             "defaults"    : defaults,
