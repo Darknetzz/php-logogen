@@ -2,6 +2,7 @@
 
 require_once("functions.php");
 
+/* ========================== NOTE: Prechecks ========================== */
 // Set content type to image
 if (!extension_loaded('gd')) {
     die('GD extension is not loaded.');
@@ -16,6 +17,14 @@ if (!function_exists('imagettftext')) {
     die('GD imagettftext function is not available.');
 }
 
+/* =========================== NOTE: Classes =========================== */
+$classes = [
+    "card"        => "card text-bg-dark border border-secondary mb-3",
+    "card-header" => "card-header text-bg-secondary",
+    "card-body"   => "card-body border border-secondary text-bg-dark",
+];
+
+/* ======================== NOTE: Image formats ======================== */
 $image_formats = [
     "png",
     "jpg",
@@ -25,8 +34,12 @@ $image_formats = [
     "bmp",
     "wbmp",
     "xbm",
+    "tiff",
+    "gd",
+    "gd2",
 ];
 
+/* ========================== NOTE: Size units ========================= */
 $size_units = [
     "px",
     "em",
@@ -49,27 +62,12 @@ foreach ($size_units as $unit) {
     $units_dropdown .= "<option value=\"$unit\">$unit</option>";
 }
 
+/* ============================ NOTE: Fonts ============================ */
 $font_path = "fonts";
 $fonts     = recursiveScan($font_path);
 if (empty($fonts)) {
     die("No fonts found in $font_path");
 }
-
-$defaults = [
-        "width"        => 250,
-        "width_units"  => "px",
-        "height"       => 250,
-        "height_units" => "px",
-        "text"         => "Insert text here...",
-        "angle"        => 0,
-        "background"   => "#".sprintf('%06X', mt_rand(0, 0xFFFFFF)),
-        "color"        => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
-        "border"       => 0,
-        "border_color" => $default_color,
-        "font"         => $fonts[mt_rand(0, count($fonts) - 1)],
-        "font_size"    => 30,
-        "format"       => "png",
-];
 $font_dropdown = "";
 foreach ($fonts as $font) {
     if ($defaults['font'] == $font) {
@@ -79,6 +77,26 @@ foreach ($fonts as $font) {
     $font_name = str_replace(".ttf", "", basename($font));
     $font_dropdown .= "<option value=\"$font\">$font_name</option>";
 }
+
+/* =========================== NOTE: Defaults ========================== */
+$defaults = [
+        "width"        => 250,
+        "width_units"  => "px",
+        "height"       => 250,
+        "height_units" => "px",
+        "text"         => "Insert text here...",
+        "text_pos_x"   => 0,
+        "text_pos_y"   => 0,
+        "angle"        => 0,
+        "background"   => "#".sprintf('%06X', mt_rand(0, 0xFFFFFF)),
+        "color"        => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
+        "border"       => 0,
+        "border_color" => $default_color,
+        "font"         => $fonts[mt_rand(0, count($fonts) - 1)],
+        "font_size"    => 30,
+        "format"       => "png",
+];
+
 $image_formats_dropdown = "";
 foreach ($image_formats as $format) {
     if ($format == $defaults['format']) {

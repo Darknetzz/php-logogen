@@ -85,7 +85,7 @@ function addBorder(&$image, $border, $border_color) {
 /* ===================================================================== */
 /*                           FUNCTION: addText                           */
 /* ===================================================================== */
-function addText(&$image, $font, $text, $font_size, $color, $angle = 0) {
+function addText(&$image, $font, $text, $font_size, $color, $angle = 0, $text_pos_x = 0, $text_pos_y = 0) {
 
     try {
         if (!is_numeric($font_size)) {
@@ -110,8 +110,8 @@ function addText(&$image, $font, $text, $font_size, $color, $angle = 0) {
 
     // Calculate text position (center)
     $text_pos   = calculateTextPos($image, $font, $text, $font_size);
-    $text_pos_x = $text_pos['text_pos_x'];
-    $text_pos_y = $text_pos['text_pos_y'];
+    $text_pos_x = (!empty($text_pos_x) && $text_pos_x != 0) ? $text_pos_x : $text_pos['text_pos_x'];
+    $text_pos_y = (!empty($text_pos_y) && $text_pos_y != 0) ? $text_pos_y : $text_pos['text_pos_y'];
 
     // Allocate text color
     $text_rgb   = hex2rgb($color);
@@ -149,6 +149,12 @@ function showImage(&$image, $format = 'png') {
     } elseif ($format == 'xbm') {
         header('Content-Type: image/x-xbitmap');
         imagexbm($image);
+    } elseif ($format == 'gd') {
+        header('Content-Type: image/gd');
+        imagegd($image);
+    } elseif ($format == 'gd2') {
+        header('Content-Type: image/gd2');
+        imagegd2($image);
     } else {
         die("Unsupported image format: $format");
     }

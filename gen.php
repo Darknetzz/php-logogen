@@ -3,11 +3,13 @@ require_once("includes/_includes.php");
 
 $image = createImage($height, $width, $background, $border);
 $image = addBorder($image, $border, $border_color);
-$image = addText($image, $font, $text, $font_size, $color, $angle);
+$image = addText($image, $font, $text, $font_size, $color, $angle, $text_pos_x, $text_pos_y);
 
 if (isset($_GET['debug'])) {
     $debug = True;
     if ($debug) {
+
+        echo "Image format: " . $format . "<br>";
     
         if (textFits($image, $font, $text, $font_size, $border = 0) === True) {
             echo "<h3 class='alert alert-success alert-important'>Text fits</h3>";
