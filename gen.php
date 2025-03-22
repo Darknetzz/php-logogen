@@ -55,5 +55,4 @@ if (isset($_GET['debug'])) {
     }
 }
 
-header('Content-Type: image/png');
-showImage($image);
+showImage($image, $format);

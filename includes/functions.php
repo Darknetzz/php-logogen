@@ -126,9 +126,32 @@ function addText(&$image, $font, $text, $font_size, $color, $angle = 0) {
 /* ===================================================================== */
 /*                         FUNCTION: outputImage                         */
 /* ===================================================================== */
-function showImage(&$image) {
-    // Output image
-    imagepng($image);
+function showImage(&$image, $format = 'png') {
+
+    if ($format == 'png') {
+        header('Content-Type: image/png');
+        imagepng($image);
+    } elseif ($format == 'jpeg') {
+        header('Content-Type: image/jpeg');
+        imagejpeg($image);
+    } elseif ($format == 'gif') {
+        header('Content-Type: image/gif');
+        imagegif($image);
+    } elseif ($format == 'webp') {
+        header('Content-Type: image/webp');
+        imagewebp($image);
+    } elseif ($format == 'bmp') {
+        header('Content-Type: image/bmp');
+        imagebmp($image);
+    } elseif ($format == 'wbmp') {
+        header('Content-Type: image/vnd.wap.wbmp');
+        imagewbmp($image);
+    } elseif ($format == 'xbm') {
+        header('Content-Type: image/x-xbitmap');
+        imagexbm($image);
+    } else {
+        die("Unsupported image format: $format");
+    }
 
     // Free memory
     imagedestroy($image);

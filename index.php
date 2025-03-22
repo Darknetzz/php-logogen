@@ -104,7 +104,7 @@
 
 
                         <div class="mb-3 input-row">
-                            <span class="input-row-name"><label class="form-label mt-3" for="border">Border:</label></span>
+                            <span class="input-row-name"><label class="form-label mt-3" for="border">Border size:</label></span>
                             <span class="input-row-input">
                                 <!-- <div class="input-group"> -->
                                     <input type="number" class="form-control" name="border" id="border" value="<?= $defaults["border"] ?>">
@@ -114,13 +114,23 @@
                         </div>
 
 
-                        <div class="mb-3 input-row">
+                        <div class="mb-1 input-row">
                             <span class="input-row-name"><label class="form-label" for="border_color">Border Color:</label></span>
                             
                             <span class="input-row-input">
                             <?= colorInput("border_color", $defaults["border_color"]) ?>
                             </span>
                         </div>
+
+                        <div class="mb-3 input-row">
+                            <span class="input-row-name"><label class="form-label mt-3" for="format">Output Format:</label></span>
+                            <span class="input-row-input">
+                                <select class="form-select" name="format" id="format">
+                                    <?= $image_formats_dropdown ?>
+                                </select>
+                            </span>
+                        </div>
+
                         <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
                         <button type="button" class="btn btn-dark randomize-all">🎲</button>
                 </form>
@@ -163,6 +173,7 @@ $(document).ready(function() {
         var   color        = $("#color").val() || defaults.color;
         var   border       = $("#border").val() || defaults.border;
         var   border_color = $("#border_color").val() || defaults.border_color;
+        var   format       = $("#format").val() || defaults.format;
         const data         = {
             "defaults"    : defaults,
             "width"       : width,
@@ -174,7 +185,8 @@ $(document).ready(function() {
             "background"  : background,
             "color"       : color,
             "border"      : border,
-            "border_color": border_color
+            "border_color": border_color,
+            "format"      : format
         };
         
         var params    = $.param(data);

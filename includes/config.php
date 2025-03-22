@@ -16,6 +16,17 @@ if (!function_exists('imagettftext')) {
     die('GD imagettftext function is not available.');
 }
 
+$image_formats = [
+    "png",
+    "jpg",
+    "jpeg",
+    "gif",
+    "webp",
+    "bmp",
+    "wbmp",
+    "xbm",
+];
+
 $size_units = [
     "px",
     "em",
@@ -57,6 +68,7 @@ $defaults = [
         "border_color" => $default_color,
         "font"         => $fonts[mt_rand(0, count($fonts) - 1)],
         "font_size"    => 30,
+        "format"       => "png",
 ];
 $font_dropdown = "";
 foreach ($fonts as $font) {
@@ -66,6 +78,14 @@ foreach ($fonts as $font) {
     }
     $font_name = str_replace(".ttf", "", basename($font));
     $font_dropdown .= "<option value=\"$font\">$font_name</option>";
+}
+$image_formats_dropdown = "";
+foreach ($image_formats as $format) {
+    if ($format == $defaults['format']) {
+        $image_formats_dropdown .= "<option value=\"$format\" selected>$format</option>";
+    } else {
+        $image_formats_dropdown .= "<option value=\"$format\">$format</option>";
+    }
 }
 
 $width        = isset($_GET['width']) ? $_GET['width'] : $defaults['width'];
@@ -78,3 +98,4 @@ $background   = isset($_GET['background']) ? $_GET['background'] : $defaults['ba
 $color        = isset($_GET['color']) ? $_GET['color'] : $defaults['color'];
 $border       = isset($_GET['border']) ? $_GET['border'] : $defaults['border'];
 $border_color = isset($_GET['border_color']) ? $_GET['border_color'] : $defaults['border_color'];
+$format       = isset($_GET['format']) ? $_GET['format'] : $defaults['format'];
