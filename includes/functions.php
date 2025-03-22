@@ -85,7 +85,7 @@ function addBorder(&$image, $border, $border_color) {
 /* ===================================================================== */
 /*                           FUNCTION: addText                           */
 /* ===================================================================== */
-function addText(&$image, $font, $text, $font_size, $color) {
+function addText(&$image, $font, $text, $font_size, $color, $angle = 0) {
 
     try {
         if (!is_numeric($font_size)) {
@@ -118,7 +118,7 @@ function addText(&$image, $font, $text, $font_size, $color) {
     $text_color = imagecolorallocate($image, $text_rgb[0], $text_rgb[1], $text_rgb[2]);
 
     // Add text to image
-    imagettftext($image, $font_size, 0, $text_pos_x, $text_pos_y, $text_color, $font, $text);
+    imagettftext($image, $font_size, $angle, $text_pos_x, $text_pos_y, $text_color, $font, $text);
 
     return $image;
 }

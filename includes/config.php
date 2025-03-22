@@ -38,14 +38,14 @@ foreach ($size_units as $unit) {
     $units_dropdown .= "<option value=\"$unit\">$unit</option>";
 }
 
-$font_path = "/usr/share/fonts";
+$font_path = "fonts";
 $fonts     = recursiveScan($font_path);
 if (empty($fonts)) {
     die("No fonts found in $font_path");
 }
 $font_dropdown = "";
 foreach ($fonts as $font) {
-    $font_name = basename($font);
+    $font_name = str_replace(".ttf", "", basename($font));
     $font_dropdown .= "<option value=\"$font\">$font_name</option>";
 }
 
@@ -55,6 +55,7 @@ $defaults = [
         "height"       => 250,
         "height_units" => "px",
         "text"         => "Insert text here...",
+        "angle"        => 0,
         "background"   => "#".sprintf('%06X', mt_rand(0, 0xFFFFFF)),
         "color"        => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
         "border"       => 0,
@@ -66,6 +67,7 @@ $defaults = [
 $width        = isset($_GET['width']) ? $_GET['width'] : $defaults['width'];
 $height       = isset($_GET['height']) ? $_GET['height'] : $defaults['height'];
 $text         = isset($_GET['text']) ? $_GET['text'] : $defaults['text'];
+$angle        = isset($_GET['angle']) ? $_GET['angle'] : $defaults['angle'];
 $font         = isset($_GET['font']) ? $_GET['font'] : $defaults['font'];
 $font_size    = isset($_GET['font_size']) ? $_GET['font_size'] : $defaults['font_size'];
 $background   = isset($_GET['background']) ? $_GET['background'] : $defaults['background'];

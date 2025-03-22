@@ -61,6 +61,7 @@
                             <span class="input-row-name"><label class="form-label mt-3" for="text">Text:</label></span>
                             <span class="input-row-input">
                                 <textarea class="form-control mt-2" name="text" id="text" rows="3" placeholder="<?= $defaults["text"] ?>"></textarea>
+                                <input type="number" name="angle" id="angle" class="form-control mt-2" placeholder="Angle (degrees)" value="<?= $defaults["angle"] ?>">
                             </span>
                         </div>
 
@@ -145,6 +146,7 @@ $(document).ready(function() {
         var   width        = $("#width").val() || defaults.width;
         var   height       = $("#height").val() || defaults.height;
         var   text         = $("#text").val() || defaults.text;
+        var   angle        = $("#angle").val() || defaults.angle;
         var   font         = $("#font").val() || defaults.font;
         var   font_size    = $("#font_size").val() || defaults.font_size;
         var   background   = $("#background").val() || defaults.background;
@@ -156,6 +158,7 @@ $(document).ready(function() {
             "width"       : width,
             "height"      : height,
             "text"        : text,
+            "angle"       : angle,
             "font"        : font,
             "font_size"   : font_size,
             "background"  : background,
