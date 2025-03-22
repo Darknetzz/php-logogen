@@ -123,10 +123,8 @@
                 <h3 class="<?= $classes['card-header'] ?>">Background</h3>
                 <div class="<?= $classes['card-body'] ?>">
                     <div class="mb-3 input-row input-group">
-                        <label class="form-label mt-3" for="background">Background Color:</label>
-                        <span class="input-row-input">
-                            <?= colorInput("background", $defaults["background"]) ?>
-                        </span>
+                        <span class="input-group-text" for="background">Background Color</span>
+                        <?= colorInput("background", $defaults["background"]) ?>
                     </div>
                 </div>
             </div>
