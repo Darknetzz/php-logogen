@@ -40,31 +40,21 @@
                 <h3 class="<?= $classes['card-header'] ?>">Image Size</h3>
                 <div class="<?= $classes['card-body'] ?>">
 
-                    <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3"
-                                for="width">Width:</label></span>
-                        <span class="input-row-input">
+                    <div class="mb-3 input-row input-group">
+                        <span class="input-group">
+                            <span class="input-group-text" for="width">Width:</span>
                             <input type="number" class="form-control" name="width" id="width"
                                 value="<?= $defaults["width"] ?>">
-                            <select name="width_units" id="width_units" class="form-select" style="width: auto"
-                                disabled>
-                                <option selected>px</option>
-                            </select>
+                            <span class="input-group-text">px</span>
+                        </span>
+
+                        <span class="input-group">
+                            <span class="input-group-text" for="width">Height:</span>
+                            <input type="number" class="form-control" name="height" id="height" value="<?= $defaults["height"] ?>">
+                            <span class="input-group-text">px</span>
                         </span>
                     </div>
 
-                    <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3"
-                                for="height">Height:</label></span>
-                        <span class="input-row-input">
-                            <input type="number" class="form-control" name="height" id="height"
-                                value="<?= $defaults["height"] ?>">
-                            <select name="height_units" id="height_units" class="form-select"
-                                style="width: auto" disabled>
-                                <option selected>px</option>
-                            </select>
-                        </span>
-                    </div>
                 </div>
             </div>
 
@@ -72,17 +62,32 @@
                 <h3 class="<?= $classes['card-header'] ?>">Text</h3>
                 <div class="<?= $classes['card-body'] ?>">
                     <p class="text-muted">Enter the text you want to display on the image.</p>
-                    <div class="mb-3 input-row">
-                        <span class="input-row-input input-group">
-                            <span class="input-group-text" for="text">Text:</span>
-                            <textarea class="form-control" name="text" id="text"
-                                placeholder="<?= $defaults["text"] ?>"></textarea>
-                        </span>
+                    
+                    <div class="mb-3 input-row input-group">
+
+                    <span class="input-row-input input-group">
+                        <span class="input-group-text" for="text">Text</span>
+                        <textarea class="form-control" name="text" id="text" placeholder="<?= $defaults["text"] ?>"></textarea>
+                    </span>
+                        
+                    <span class="input-row-input input-group">
+                        <span class="input-group-text" for="font">Font</span>
+                        <select class="form-select" name="font" id="font">
+                            <?= $font_dropdown ?>
+                        </select>
+                    </span>
+
+                    <span class="input-row-input input-group">
+                        <span class="input-group-text" for="font_size">Font size:</span>
+                        <input type="number" class="form-control" name="font_size" id="font_size"
+                            value="<?= $defaults["font_size"] ?>">
+                        <span class="input-group-text">px</span>
+                    </span>
+
                     </div>
 
                     <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3" for="text_pos">Text
-                                Position:</label></span>
+                        <span class="input-row-name"><label class="form-label mt-3" for="text_pos">Text Position</label></span>
                         <span class="input-row-input input-group">
                             <span class="input-group-text">X</span>
                             <input type="number" class="form-control" name="text_pos_x" id="text_pos_x" value=""
@@ -96,36 +101,18 @@
                     </div>
 
                     <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3"
-                                for="angle">Angle:</label></span>
-                        <span class="input-row-input">
+                        <span class="input-row-input input-group">
+                            <span class="input-group-text" for="font">Angle</span>
                             <input type="number" class="form-control" name="angle" id="angle"
                                 value="<?= $defaults["angle"] ?>">
                         </span>
                     </div>
 
-
                     <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3"
-                                for="font">Font:</label></span>
-                        <span class="input-row-input">
-                            <!-- <div class="input-group"> -->
-                            <select class="form-select" name="font" id="font">
-                                <?= $font_dropdown ?>
-                            </select>
-                            <input type="number" class="form-control" name="font_size" id="font_size"
-                                value="<?= $defaults["font_size"] ?>">
-                            <span class="input-group-text">px</span>
-                            <!-- </div> -->
-                        </span>
-                    </div>
-
-
-                    <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3" for="color">Text
-                                Color:</label></span>
-                        <span class="input-row-input">
+                        <span class="input-row-input input-group">
+                            <span class="input-group-text" for="font">Text Color</span>
                             <?= colorInput("color", $defaults["color"]) ?>
+                            <!-- <button type="button" class="btn btn-secondary randomize-color">🎲</button> -->
                         </span>
                     </div>
 
@@ -135,9 +122,8 @@
             <div class="<?= $classes['card'] ?>">
                 <h3 class="<?= $classes['card-header'] ?>">Background</h3>
                 <div class="<?= $classes['card-body'] ?>">
-                    <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3" for="background">Background
-                                Color:</label></span>
+                    <div class="mb-3 input-row input-group">
+                        <label class="form-label mt-3" for="background">Background Color:</label>
                         <span class="input-row-input">
                             <?= colorInput("background", $defaults["background"]) ?>
                         </span>
@@ -148,6 +134,7 @@
             <div class="<?= $classes['card'] ?>">
                 <h3 class="<?= $classes['card-header'] ?>">Border</h3>
                 <div class="<?= $classes['card-body'] ?>">
+
                     <div class="mb-3 input-row">
                         <span class="input-row-name"><label class="form-label mt-3" for="border">Border size:</label></span>
                         <span class="input-row-input">
@@ -175,22 +162,13 @@
                 <div class="mb-3 input-row">
                     <span class="input-row-name"><label class="form-label mt-3" for="format">Output Format:</label></span>
                     <span class="input-row-input">
-                        <select class="form-select" name="format" id="format">
-                            <?= $image_formats_dropdown ?>
-                        </select>
+                        <div class="form-selectgroup">
+                            <?= $image_formats_select ?>
+                        </div>
                     </span>
                 </div>
                 <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
                 <button type="button" class="btn btn-dark randomize-all">🎲</button>
-
-                    <hr>
-
-                <div class="p3">
-                    <h2>Generated Image</h2>
-                    <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
-                    <div style="mt-2" id="generatedImage"></div>
-                </div>
-
 
                 </div>
             </div>
@@ -199,9 +177,9 @@
         <div class="<?= $classes['card'] ?> mt-3">
             <h3 class="<?= $classes['card-header'] ?>">Image Preview</h3>
             <div class="<?= $classes['card-body'] ?>">
-
-
-                <hr>
+                <h4>Generated Image</h4>
+                <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
+                <div style="mt-2" id="generatedImage"></div>
             </div>
         </div>
 
@@ -209,13 +187,12 @@
             <h3 class="<?= $classes['card-header'] ?>">Debug</h3>
             <div class="<?= $classes['card-body'] ?>">
                 <div class="p3">
-                    <h2>Debug Data</h2>
                     <div id="debug"></div>
                 </div>
-
-                <hr>
             </div>
         </div>
+
+
     </div>
 </body>
 

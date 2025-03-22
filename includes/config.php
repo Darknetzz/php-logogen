@@ -38,6 +38,15 @@ $image_formats = [
     "gd",
     "gd2",
 ];
+$image_formats_select = "";
+foreach ($image_formats as $format) {
+    $image_formats_select .= '
+        <label class="form-selectgroup-item">
+            <input type="radio" name="name" value="'.$format.'" class="form-selectgroup-input" />
+            <span class="form-selectgroup-label">'.$format.'</span>
+        </label>
+    ';
+}
 
 /* ========================== NOTE: Size units ========================= */
 $size_units = [
@@ -97,21 +106,14 @@ $defaults = [
         "format"       => "png",
 ];
 
-$image_formats_dropdown = "";
-foreach ($image_formats as $format) {
-    if ($format == $defaults['format']) {
-        $image_formats_dropdown .= "<option value=\"$format\" selected>$format</option>";
-    } else {
-        $image_formats_dropdown .= "<option value=\"$format\">$format</option>";
-    }
-}
-
 $width        = isset($_GET['width']) ? $_GET['width'] : $defaults['width'];
 $height       = isset($_GET['height']) ? $_GET['height'] : $defaults['height'];
 $text         = isset($_GET['text']) ? $_GET['text'] : $defaults['text'];
 $angle        = isset($_GET['angle']) ? $_GET['angle'] : $defaults['angle'];
 $font         = isset($_GET['font']) ? $_GET['font'] : $defaults['font'];
 $font_size    = isset($_GET['font_size']) ? $_GET['font_size'] : $defaults['font_size'];
+$text_pos_x   = isset($_GET['text_pos_x']) ? $_GET['text_pos_x'] : $defaults['text_pos_x'];
+$text_pos_y   = isset($_GET['text_pos_y']) ? $_GET['text_pos_y'] : $defaults['text_pos_y'];
 $background   = isset($_GET['background']) ? $_GET['background'] : $defaults['background'];
 $color        = isset($_GET['color']) ? $_GET['color'] : $defaults['color'];
 $border       = isset($_GET['border']) ? $_GET['border'] : $defaults['border'];

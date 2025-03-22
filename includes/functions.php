@@ -255,13 +255,11 @@ function recursiveScan($dir) {
 /* ===================================================================== */
 function colorInput($input_name = "color", $color = "#000000") {
     $colorinput = '
-    <div class="input-group colorInput" style="max-width:250px;">
-        <input type="color" class="form-control form-control-color"
+        <input type="color" class="form-control form-control-color" style="max-width: 100px;"
         name="' . $input_name . '" 
         id="' . $input_name . '" 
         value="' . $color . '" required>
         <button type="button" class="btn btn-dark randomize-color" data-input="' . $input_name . '">🎲</button>
-     </div>
      ';
      return $colorinput;
 }
