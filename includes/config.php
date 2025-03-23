@@ -22,6 +22,8 @@ $classes = [
     "card"        => "card text-bg-dark border border-secondary mb-3",
     "card-header" => "card-header text-bg-secondary",
     "card-body"   => "card-body border border-secondary text-bg-dark",
+    "table-title" => 'class="bg-secondary text-bg-dark" colspan="100%"',
+    "input-title" => 'class="text-bg-dark"',
 ];
 
 /* ========================= NOTE: Size presets ======================== */

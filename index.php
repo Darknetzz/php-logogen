@@ -24,27 +24,22 @@
 
     <div class="container p-5">
 
-        <div class="banner">
-            <div class="row">
-                <div class="col">
-                    <img class="m-2 p-2" src="banner.png" alt="LogoGen" class="img-fluid">
-                </div>
-            </div>
-        </div>
-
+        <img class="m-2 p-2" src="banner.png" alt="LogoGen" class="img-fluid" style="max-width: 100%; height: auto;">
 
         <!-- <h1 class="m-5 p-5 text-warning">LogoGen</h1> -->
         <form id="logogenform" action="index.php" method="post">
 
             <table class="table">
+
+
                 <thead>
                     <tr class="table-secondary">
-                        <th colspan="100%">Image Size</th>
+                        <th <?= $classes['table-title'] ?>>Image Size</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th class="input-title">Size Presets</th>
+                        <th <?= $classes['input-title'] ?>>Size Presets</th>
                         <td>
                             <div class="form-selectgroup">
                                 <?= $size_presets_select ?>
@@ -52,7 +47,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Image Size</th>
+                        <th <?= $classes['input-title'] ?>>Image Size</th>
                         <td>
                             <div class="row">
                                 <div class="col input-group">
@@ -69,7 +64,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Image Rotation</th>
+                        <th <?= $classes['input-title'] ?>>Image Rotation</th>
                         <td>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="image_rotation" id="image_rotation"
@@ -79,7 +74,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Background Color</th>
+                        <th <?= $classes['input-title'] ?>>Background Color</th>
                         <td>
                             <div class="mb-3 input-row input-group">
                                 <?= colorInput("background", $defaults["background"]) ?>
@@ -88,14 +83,15 @@
                     </tr>
                 </tbody>
 
+
                 <thead>
                     <tr>
-                        <th colspan="100%" class="table-secondary">Text</th>
+                        <th <?= $classes['table-title'] ?>>Text</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th class="input-title">Font</th>
+                        <th <?= $classes['input-title'] ?>>Font</th>
                         <td>
                             <div class="row">
                                 <span class="col input-group">
@@ -112,14 +108,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Text</th>
+                        <th <?= $classes['input-title'] ?>>Text</th>
                         <td>
                             <textarea class="form-control" name="text" id="text"
                                 placeholder="<?= $defaults["text"] ?>"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Text Position</th>
+                        <th <?= $classes['input-title'] ?>>Text Position</th>
                         <td>
                             <div class="row">
                                 <div class="col">
@@ -140,7 +136,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Text Rotation</th>
+                        <th <?= $classes['input-title'] ?>>Text Rotation</th>
                         <td>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="text_rotation" id="text_rotation" value="<?= $defaults["text_rotation"] ?>">
@@ -148,7 +144,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th class="input-title">Text Color</th>
+                        <th <?= $classes['input-title'] ?>>Text Color</th>
                         <td>
                             <span class="input-row-input input-group">
                                 <?= colorInput("color", $defaults["color"]) ?>
@@ -157,14 +153,15 @@
                     </tr>
                 </tbody>
 
+
                 <thead>
                     <tr>
-                        <th colspan="100%" class="table-secondary">Border</th>
+                        <th <?= $classes['table-title'] ?>>Border</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Border Size</td>
+                        <th <?= $classes['input-title'] ?>>Border Size</th>
                         <td>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="border" id="border"
@@ -174,7 +171,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Border Color</td>
+                        <th <?= $classes['input-title'] ?>>Border Color</th>
                         <td>
                             <span class="input-group">
                                 <?= colorInput("border_color", $defaults["border_color"]) ?>
@@ -183,134 +180,67 @@
                     </tr>
                 </tbody>
 
-            </table>
 
-    </div>
-    <div class="col">
-
-        <div class="<?= $classes['card'] ?>">
-            <h3 class="<?= $classes['card-header'] ?>">Text</h3>
-            <div class="<?= $classes['card-body'] ?>">
-                <p class="text-muted">Enter the text you want to display on the image.</p>
-
-                <div class="mb-3 input-row input-group">
-
-                    <span class="input-row-input input-group">
-                        <span class="input-group-text" for="text">Text</span>
-                        <textarea class="form-control" name="text" id="text"
-                            placeholder="<?= $defaults["text"] ?>"></textarea>
-                    </span>
-
-                    <span class="input-row-input input-group">
-                        <span class="input-group-text" for="font">Font</span>
-                        <select class="form-select" name="font" id="font">
-                            <?= $font_dropdown ?>
-                        </select>
-                    </span>
-
-                    <span class="input-row-input input-group">
-                        <span class="input-group-text" for="font_size">Font size:</span>
-                        <input type="number" class="form-control" name="font_size" id="font_size"
-                            value="<?= $defaults["font_size"] ?>">
-                        <span class="input-group-text">px</span>
-                    </span>
-
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col">
-            <div class="<?= $classes['card'] ?>">
-                <h3 class="<?= $classes['card-header'] ?>">Border</h3>
-                <div class="<?= $classes['card-body'] ?>">
-
-                    <div class="mb-3 input-row">
-                        <span class="input-row-name"><label class="form-label mt-3" for="border">Border
-                                size:</label></span>
-                        <span class="input-row-input">
-                            <input type="number" class="form-control" name="border" id="border"
-                                value="<?= $defaults["border"] ?>">
-                            <span class="input-group-text">px</span>
-                        </span>
-                    </div>
-
-                    <div class="mb-1 input-row">
-                        <span class="input-row-name"><label class="form-label" for="border_color">Border
-                                Color:</label></span>
-                        <div class="mb-3 input-row input-group">
-                            <span class="input-group-text" for="background">Border Color</span>
-                            <?= colorInput("border_color", $defaults["border_color"]) ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="<?= $classes['card'] ?>">
-                    <!-- <h3 class="<?= $classes['card-header'] ?>">Filter</h3> -->
-                    <div class="<?= $classes['card-body'] ?>">
-                        <span class="input-row-input">
-                            <span class="input-row-name"><label class="form-label mt-3" for="format">Output
-                                    Format:</label></span>
+                <thead>
+                    <tr>
+                        <th <?= $classes['table-title'] ?>>Filters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Filters</th>
+                        <td>
                             <div class="form-selectgroup">
                                 <?= $filters_select ?>
                             </div>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="<?= $classes['card'] ?>">
-                    <!-- <h3 class="<?= $classes['card-header'] ?>">Output</h3> -->
-                    <div class="<?= $classes['card-body'] ?>">
-
-                        <div class="mb-3 input-row">
-                            <span class="input-row-name"><label class="form-label mt-3" for="format">Output
-                                    Format:</label></span>
-                            <span class="input-row-input">
-                                <div class="form-selectgroup">
-                                    <?= $image_formats_select ?>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>
-
-        <div class="row">
-            <div class="col">
-                <div class="<?= $classes['card'] ?> mt-3">
-                    <h3 class="<?= $classes['card-header'] ?>">Image Preview</h3>
-                    <div class="<?= $classes['card-body'] ?>">
-                        <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
-                        <button type="button" class="btn btn-dark randomize-all">🎲</button>
-                        <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
-                        <div style="mt-2" id="generatedImage"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="<?= $classes['card'] ?> mt-3">
-                    <h3 class="<?= $classes['card-header'] ?>">Debug</h3>
-                    <div class="<?= $classes['card-body'] ?>">
-                        <div class="p3">
-                            <div id="debug"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </td>
+                    </tr>
+                </tbody>
 
 
+                <thead>
+                    <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Output Format</th>
+                        <td>
+                            <div class="form-selectgroup">
+                                <?= $image_formats_select ?>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+                <thead>
+                    <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Output</td>
+                        <td>
+                            <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
+                            <button type="button" class="btn btn-dark randomize-all">🎲</button>
+                            <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
+                            <div style="mt-2" id="generatedImage"></div>
+                        </td>
+                    </tr>
+                </tbody>
+                <thead><th <?= $classes['table-title'] ?>>Debug</th></tr>
+                <tbody>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Debug</th>
+                        <td>
+                            <div id="debug">Debug info will appear here.</div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
     </div>
+</form>
+
 </body>
 
 <script>
