@@ -152,6 +152,17 @@
                 </div>
             </div>
 
+            <div class="<?= $classes['card'] ?>">
+                <h3 class="<?= $classes['card-header'] ?>">Filter</h3>
+                <div class="<?= $classes['card-body'] ?>">
+                    <span class="input-row-input">
+                        <div class="form-selectgroup">
+                            <?= $filters_select ?>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
 
             <div class="<?= $classes['card'] ?>">
                 <h3 class="<?= $classes['card-header'] ?>">Output</h3>

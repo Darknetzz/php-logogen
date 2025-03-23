@@ -48,6 +48,29 @@ foreach ($image_formats as $format) {
     ';
 }
 
+/* =========================== NOTE: Filters =========================== */
+$filters = [
+    "none"        => "No filter",
+    "grayscale"   => "Grayscale",
+    "invert"      => "Invert",
+    "brightness"  => "Brightness",
+    "contrast"    => "Contrast",
+    "colorize"    => "Colorize",
+    "emboss"      => "Emboss",
+    "edge"        => "Edge",
+    "gaussian"    => "Gaussian blur",
+    "pixelate"    => "Pixelate",
+];
+$filters_select = "";
+foreach ($filters as $filter => $description) {
+    $filters_select .= '
+        <label class="form-selectgroup-item">
+            <input type="radio" name="name" value="'.$filter.'" class="form-selectgroup-input" />
+            <span class="form-selectgroup-label">'.$description.'</span>
+        </label>
+    ';
+}
+
 /* ========================== NOTE: Size units ========================= */
 $size_units = [
     "px",
