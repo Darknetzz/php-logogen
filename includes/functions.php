@@ -24,7 +24,7 @@ function hex2rgb($hex) {
 /* ===================================================================== */
 /*                         FUNCTION: createImage                         */
 /* ===================================================================== */
-function createImage($height = 100, $width = 100, $background = '#000000') {
+function createImage($height = 100, $width = 100, $background = '#000000', $angle = 0) {
 
     try {
         if (!is_numeric($height) || !is_numeric($width)) {
@@ -44,6 +44,9 @@ function createImage($height = 100, $width = 100, $background = '#000000') {
     $bg_rgb = hex2rgb($background);
     $bg     = imagecolorallocate($image, $bg_rgb[0], $bg_rgb[1], $bg_rgb[2]);
     imagefill($image, 0, 0, $bg);
+
+    // Rotate the image if specified
+    imagerotate($image, $angle, 0);
 
     return $image;
 }
