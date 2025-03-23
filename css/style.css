@@ -1,24 +1,4 @@
-.input-row-input {
-    display: flex;
-    /* align-items: center; */
-    /* text-align: center; */
-    /* justify-content: space-between; */
-    margin-bottom: 10px;
-    max-width: 600px;
-}
-
 .input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    max-width: 600px;
-}
-
-#logogenform {
-    justify-content: center;
-    align-items: center;
-}
-
-.form-control, .form-select {
-    max-width: 300px;
 }

@@ -40,8 +40,8 @@ foreach ($size_presets as $preset => $dimensions) {
     $height = $dimensions['height'];
     $size_presets_select .= '
         <label class="form-selectgroup-item">
-            <input type="radio" name="name" value="'.$preset.'" class="form-selectgroup-input size-preset" />
-            <span class="form-selectgroup-label">'.$preset.' ('.$width.'x'.$height.')</span>
+            <input type="radio" name="name" value="'.$preset.'" class="form-selectgroup-input" />
+            <span class="form-selectgroup-label size-preset">'.$preset.' ('.$width.'x'.$height.')</span>
         </label>
     ';
 }
