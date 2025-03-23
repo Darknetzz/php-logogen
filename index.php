@@ -337,6 +337,8 @@ $(document).ready(function() {
         });
     });
 
+    $("#generateBtn").click();
+
 });
 </script>
 
