@@ -85,28 +85,122 @@ foreach ($image_formats as $format) {
 // IMG_FILTER_PIXELATE: Applies pixelation effect to the image, use args to set the block size and arg2 to set the pixelation effect mode.
 // IMG_FILTER_SCATTER: Applies scatter effect to the image, use args and arg2 to define the effect strength and additionally arg3 to only apply the on select pixel colors.
 $filters = [
-    "negate"     => ["Negate", IMG_FILTER_NEGATE],
-    "grayscale"  => ["Grayscale", IMG_FILTER_GRAYSCALE],
-    "brightness" => ["Brightness", IMG_FILTER_BRIGHTNESS],
-    "contrast"   => ["Contrast", IMG_FILTER_CONTRAST],
-    "colorize"   => ["Colorize", IMG_FILTER_COLORIZE],
-    "emboss"     => ["Emboss", IMG_FILTER_EMBOSS],
-    "edge"       => ["Edge", IMG_FILTER_EDGEDETECT],
-    "gaussian"   => ["Gaussian blur", IMG_FILTER_GAUSSIAN_BLUR],
-    "pixelate"   => ["Pixelate", IMG_FILTER_PIXELATE],
-    "mean"       => ["Mean removal", IMG_FILTER_MEAN_REMOVAL],
-    "smooth"     => ["Smooth", IMG_FILTER_SMOOTH],
-    "selective"  => ["Selective blur", IMG_FILTER_SELECTIVE_BLUR],
-    "scatter"    => ["Scatter", IMG_FILTER_SCATTER],
+    "negate"     => [
+        "name"   => "Negate", 
+        "filter" => IMG_FILTER_NEGATE,
+        "args"   => Null,
+    ],
+    "grayscale"  => [
+        "name"   => "Grayscale", 
+        "filter" => IMG_FILTER_GRAYSCALE,
+        "args"   => Null,
+    ],
+    "brightness" => [
+        "name"   => "Brightness", 
+        "filter" => IMG_FILTER_BRIGHTNESS,
+        "args"   => ["brightness_level" => 0],
+    ],
+    "contrast"   => [
+        "name"   => "Contrast", 
+        "filter" => IMG_FILTER_CONTRAST,
+        "args"   => ["contrast_level" => 0],
+    ],
+    "colorize"   => [
+        "name"   => "Colorize", 
+        "filter" => IMG_FILTER_COLORIZE,
+        "args"   => [
+            "red"   => 0,
+            "green" => 0,
+            "blue"  => 0,
+            "alpha" => 0,
+        ],
+    ],
+    "emboss"     => [
+        "name"   => "Emboss", 
+        "filter" => IMG_FILTER_EMBOSS,
+        "args"   => Null,
+    ],
+    "edge"       => [
+        "name"   => "Edge", 
+        "filter" => IMG_FILTER_EDGEDETECT,
+        "args"   => Null,
+    ],
+    "gaussian"   => [
+        "name"   => "Gaussian blur", 
+        "filter" => IMG_FILTER_GAUSSIAN_BLUR,
+        "args"   => Null,
+    ],
+    "pixelate"   => [
+        "name"   => "Pixelate", 
+        "filter" => IMG_FILTER_PIXELATE,
+        "args"   => [
+            "block_size" => 0,
+            "mode"       => 0,
+        ],
+    ],
+    "mean"       => [
+        "name"   => "Mean removal", 
+        "filter" => IMG_FILTER_MEAN_REMOVAL,
+        "args"   => Null,
+    ],
+    "smooth"     => [
+        "name"   => "Smooth", 
+        "filter" => IMG_FILTER_SMOOTH,
+        "args"   => ["smooth_level" => 0],
+    ],
+    "selective"  => [
+        "name"   => "Selective blur", 
+        "filter" => IMG_FILTER_SELECTIVE_BLUR,
+        "args"   => Null,
+    ],
+    "scatter"    => [
+        "name"   => "Scatter", 
+        "filter" => IMG_FILTER_SCATTER,
+        "args"   => [
+            "strength" => 0,
+            "mode"     => 0,
+            "color"    => 0,
+        ],
+    ],
 ];
 $filters_select = "";
+$filters_args    = "";
 foreach ($filters as $name => $filter) {
+    
+    $filter_name = $filter["name"];
+    $filter_id   = $filter["filter"];
+    $arglist     = $filter["args"];
+
     $filters_select .= '
         <label class="form-selectgroup-item">
-            <input type="checkbox" name="name" value="'.$name.'" class="form-selectgroup-input" />
-            <span class="form-selectgroup-label">'.$filter[0].'</span>
+            <input type="checkbox" name="name" value="'.$name.'" class="form-selectgroup-input filter-check" />
+            <span class="form-selectgroup-label">'.$filter["name"].'</span>
         </label>
     ';
+
+    $filter_args = 
+        '<table class="table table-sm args-table" style="display:none;" data-filter="'.$name.'">
+            <tr><th colspan="100%" class="text-success bg-secondary">✅ '.$filter["name"].'</th></tr>';
+    if (empty($arglist)) {
+        $filter_args .= '<tr><td><span class="badge text-success">Enabled</span></td></tr>';
+    } elseif (!is_array($arglist)) {
+        $filter_args .= '<tr><td>Invalid arguments (not an array)</td></tr>';
+    } elseif (count($arglist) > 0) {
+        foreach ($arglist as $argname => $argdefaultval) {
+            $filter_args .= '
+            <tr>
+                <td>
+                    <div class="input-group m-2 p-2">
+                        <div class="input-group-text">'.$argname.'</div>
+                        <input type="text" name="'.$argname.'" value="'.$argdefaultval.'" class="form-control" />
+                    </div>
+                </td>
+            </tr>
+            ';
+        }
+    }
+    $filter_args .= "</table>";
+    $filters_args .= $filter_args;
 }
 
 /* ========================== NOTE: Size units ========================= */

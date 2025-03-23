@@ -2,3 +2,8 @@
     display: flex;
     align-items: center;
 }
+
+.form-selectgroup-input:checked + .form-selectgroup-label {
+    background-color: #66ff00;
+    border-color: #007bff;
+}

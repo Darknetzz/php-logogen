@@ -185,8 +185,11 @@
                             <div class="form-selectgroup">
                                 <?= $filters_select ?>
                             </div>
-                            <input type="number" class="form-control" name="filter_args" id="filter_args" value="0">
                         </td>
+                    </tr>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Filter arguments</th>
+                        <td><?= $filters_args ?></td>
                     </tr>
                 </tbody>
 
@@ -206,16 +209,17 @@
                     
                     
                     <tr>
-                        <th <?= $classes['input-title'] ?>>Output</td>
-                        <td>
+                        <th <?= $classes['input-title'] ?>>
+                            Output
+                            <br>
                             <div class="btn-group">
                                 <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
                                 <button type="button" class="btn btn-dark randomize-all">🎲</button>
                             </div>
-                            <hr>
-                            <a id="openImage" target="_blank">
-                                <div style="mt-2" id="generatedImage">Image will appear here.</div>
-                            </a>
+                        </th>
+                        <td>
+                            <div style="mt-2" id="generatedImage">Image will appear here.</div>
+                            <a id="openImage" target="_blank" class="badge text-bg-info" style="display: none;">Open Image</a>
                         </td>
                     </tr>
                 </tbody>
@@ -237,6 +241,18 @@
 
 <script>
 $(document).ready(function() {
+
+    /* ============================ filter-check =========================== */
+    $(".filter-check").on('click', function() {
+        var filter = $(this).val();
+        if ($(this).is(':checked')) {
+            $(".args-table[data-filter='" + filter + "']").show();
+            return;
+        }
+        $(".args-table[data-filter='" + filter + "']").hide();
+    });
+
+    /* ============================ size-preset ============================ */
     $(".size-preset").on('click', function() {
         var preset = $(this).val();
         var width = $(this).data("width");
@@ -280,7 +296,7 @@ $(document).ready(function() {
             "color"         : color,
             "border"        : border,
             "border_color"  : border_color,
-            "format"        : format
+            "format"        : format,
             "filter"        : filter,
             "filter_args"   : filter_args,
             "image_rotation": image_rotation
