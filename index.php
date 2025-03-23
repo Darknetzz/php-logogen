@@ -185,6 +185,7 @@
                             <div class="form-selectgroup">
                                 <?= $filters_select ?>
                             </div>
+                            <input type="number" class="form-control" name="filter_args" id="filter_args" value="0">
                         </td>
                     </tr>
                 </tbody>
@@ -236,10 +237,10 @@
 
 <script>
 $(document).ready(function() {
-    $(".size-presets").change(function() {
+    $(".size-preset").on('click', function() {
         var preset = $(this).val();
-        var width = <?= json_encode($size_presets) ?>[preset].width;
-        var height = <?= json_encode($size_presets) ?>[preset].height;
+        var width = $(this).data("width");
+        var height = $(this).data("height");
         $("#width").val(width);
         $("#height").val(height);
         $("#generateBtn").click();
@@ -248,36 +249,41 @@ $(document).ready(function() {
         $("#generateBtn").click();
     });
     $("#generateBtn").click(function() {
-        const defaults = <?= json_encode($defaults) ?>;
-        var width = $("#width").val() || defaults.width;
-        var height = $("#height").val() || defaults.height;
-        var image_rotation = $("#image_rotation").val() || defaults.image_rotation;
-        var text = $("#text").val() || defaults.text;
-        var text_rotation = $("#text_rotation").val() || defaults.text_rotation;
-        var font = $("#font").val() || defaults.font;
-        var font_size = $("#font_size").val() || defaults.font_size;
-        var text_pos_x = $("#text_pos_x").val() || defaults.text_pos_x;
-        var text_pos_y = $("#text_pos_y").val() || defaults.text_pos_y;
-        var background = $("#background").val() || defaults.background;
-        var color = $("#color").val() || defaults.color;
-        var border = $("#border").val() || defaults.border;
-        var border_color = $("#border_color").val() || defaults.border_color;
-        var format = $("#format").val() || defaults.format;
-        const data = {
-            "defaults": defaults,
-            "width": width,
-            "height": height,
-            "text": text,
-            "text_rotation": text_rotation,
-            "font": font,
-            "font_size": font_size,
-            "text_pos_x": text_pos_x,
-            "text_pos_y": text_pos_y,
-            "background": background,
-            "color": color,
-            "border": border,
-            "border_color": border_color,
-            "format": format
+        const defaults       = <?= json_encode($defaults) ?>;
+        var   width          = $("#width").val() || defaults.width;
+        var   height         = $("#height").val() || defaults.height;
+        var   image_rotation = $("#image_rotation").val() || defaults.image_rotation;
+        var   text           = $("#text").val() || defaults.text;
+        var   text_rotation  = $("#text_rotation").val() || defaults.text_rotation;
+        var   font           = $("#font").val() || defaults.font;
+        var   font_size      = $("#font_size").val() || defaults.font_size;
+        var   text_pos_x     = $("#text_pos_x").val() || defaults.text_pos_x;
+        var   text_pos_y     = $("#text_pos_y").val() || defaults.text_pos_y;
+        var   background     = $("#background").val() || defaults.background;
+        var   color          = $("#color").val() || defaults.color;
+        var   border         = $("#border").val() || defaults.border;
+        var   border_color   = $("#border_color").val() || defaults.border_color;
+        var   format         = $("#format").val() || defaults.format;
+        var   filter         = $("#filter").val() || defaults.filter;
+        var   filter_args    = $("#filter_args").val() || defaults.filter_args;
+        const data           = {
+            "defaults"      : defaults,
+            "width"         : width,
+            "height"        : height,
+            "text"          : text,
+            "text_rotation" : text_rotation,
+            "font"          : font,
+            "font_size"     : font_size,
+            "text_pos_x"    : text_pos_x,
+            "text_pos_y"    : text_pos_y,
+            "background"    : background,
+            "color"         : color,
+            "border"        : border,
+            "border_color"  : border_color,
+            "format"        : format
+            "filter"        : filter,
+            "filter_args"   : filter_args,
+            "image_rotation": image_rotation
         };
 
         var params = $.param(data);
@@ -294,9 +300,8 @@ $(document).ready(function() {
         });
 
         $.get(debug_url, function(data) {
-            console.log("Debug data:", data);
-            var json_data = JSON.stringify(data);
-            $("#debug").html("<h3>Debug Data</h3>" + json_data);
+            // console.log("Debug data:", data);
+            $("#debug").html("<h3>Debug Data</h3>" + data);
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.error("Error fetching debug data:", errorThrown);
         });

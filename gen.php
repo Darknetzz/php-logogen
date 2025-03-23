@@ -8,8 +8,6 @@ $image = addText($image, $font, $text, $font_size, $color, $angle, $text_pos_x, 
 if (isset($_GET['debug'])) {
     $debug = True;
     if ($debug) {
-
-        echo "Image format: " . $format . "<br>";
     
         if (textFits($image, $font, $text, $font_size, $border = 0) === True) {
             echo "<h3 class='alert alert-success alert-important'>Text fits</h3>";
@@ -17,10 +15,13 @@ if (isset($_GET['debug'])) {
             echo "<h3 class='alert alert-warning alert-important'>Text does not fit</h3>";
         }
 
+        echo "Image format: " . $format . "<br>";
 
-        echo "<h3>Defaults</h3>";
-        echo "<table class='table table-striped'>";
-        echo "<tr><th>Key</th><th>Value</th></tr>";
+
+
+        echo "<table class='table table-sm'>";
+        echo "<tr><th colspan='100%' class='text-bg-secondary'><h3>Defaults</h3></th></tr>";
+        echo "<tr class='text-bg-secondary'><th>Key</th><th>Value</th></tr>";
         foreach ($defaults as $key => $value) {
             if (is_array($value)) {
             echo "<tr><td>$key</td><td>";
@@ -29,14 +30,14 @@ if (isset($_GET['debug'])) {
             }
             echo "</td></tr>";
             } else {
-            echo "<tr><td>$key</td><td>$value</td></tr>";
+            echo "<tr><td>$key</td><td><code>$value</code></td></tr>";
             }
         }
         echo "</table>";
         
-        echo "<h3>GET</h3>";
-        echo "<table class='table table-striped'>";
-        echo "<tr><th>Key</th><th>Value</th></tr>";
+        echo "<table class='table table-sm'>";
+        echo "<tr><th colspan='100%' class='text-bg-secondary'><h3>GET</h3></th></tr>";
+        echo "<tr class='text-bg-secondary'><th>Key</th><th>Value</th></tr>";
         foreach ($_GET as $key => $value) {
             if ($key == 'defaults') {
             continue;
@@ -47,7 +48,7 @@ if (isset($_GET['debug'])) {
                 echo "$subkey: $subvalue<br>";
             }
             } else {
-            echo "$value";
+            echo "<code>$value</code>";
             }
             echo "</td></tr>";
         }

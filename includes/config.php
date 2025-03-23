@@ -39,9 +39,9 @@ foreach ($size_presets as $preset => $dimensions) {
     $width  = $dimensions['width'];
     $height = $dimensions['height'];
     $size_presets_select .= '
-        <label class="form-selectgroup-item">
+        <label class="form-selectgroup-item size-preset" data-width="'.$width.'" data-height="'.$height.'">
             <input type="radio" name="name" value="'.$preset.'" class="form-selectgroup-input" />
-            <span class="form-selectgroup-label size-preset">'.$preset.' ('.$width.'x'.$height.')</span>
+            <span class="form-selectgroup-label">'.$preset.' ('.$width.'x'.$height.')</span>
         </label>
     ';
 }
@@ -71,24 +71,40 @@ foreach ($image_formats as $format) {
 }
 
 /* =========================== NOTE: Filters =========================== */
+// IMG_FILTER_NEGATE: Reverses all colors of the image.
+// IMG_FILTER_GRAYSCALE: Converts the image into grayscale by changing the red, green and blue components to their weighted sum using the same coefficients as the REC.601 luma (Y') calculation. The alpha components are retained. For palette images the result may differ due to palette limitations.
+// IMG_FILTER_BRIGHTNESS: Changes the brightness of the image. Use args to set the level of brightness. The range for the brightness is -255 to 255.
+// IMG_FILTER_CONTRAST: Changes the contrast of the image. Use args to set the level of contrast.
+// IMG_FILTER_COLORIZE: Like IMG_FILTER_GRAYSCALE, except you can specify the color. Use args, arg2 and arg3 in the form of red, green, blue and arg4 for the alpha channel. The range for each color is 0 to 255.
+// IMG_FILTER_EDGEDETECT: Uses edge detection to highlight the edges in the image.
+// IMG_FILTER_EMBOSS: Embosses the image.
+// IMG_FILTER_GAUSSIAN_BLUR: Blurs the image using the Gaussian method.
+// IMG_FILTER_SELECTIVE_BLUR: Blurs the image.
+// IMG_FILTER_MEAN_REMOVAL: Uses mean removal to achieve a "sketchy" effect.
+// IMG_FILTER_SMOOTH: Makes the image smoother. Use args to set the level of smoothness.
+// IMG_FILTER_PIXELATE: Applies pixelation effect to the image, use args to set the block size and arg2 to set the pixelation effect mode.
+// IMG_FILTER_SCATTER: Applies scatter effect to the image, use args and arg2 to define the effect strength and additionally arg3 to only apply the on select pixel colors.
 $filters = [
-    "none"        => "No filter",
-    "grayscale"   => "Grayscale",
-    "invert"      => "Invert",
-    "brightness"  => "Brightness",
-    "contrast"    => "Contrast",
-    "colorize"    => "Colorize",
-    "emboss"      => "Emboss",
-    "edge"        => "Edge",
-    "gaussian"    => "Gaussian blur",
-    "pixelate"    => "Pixelate",
+    "negate"     => ["Negate", IMG_FILTER_NEGATE],
+    "grayscale"  => ["Grayscale", IMG_FILTER_GRAYSCALE],
+    "brightness" => ["Brightness", IMG_FILTER_BRIGHTNESS],
+    "contrast"   => ["Contrast", IMG_FILTER_CONTRAST],
+    "colorize"   => ["Colorize", IMG_FILTER_COLORIZE],
+    "emboss"     => ["Emboss", IMG_FILTER_EMBOSS],
+    "edge"       => ["Edge", IMG_FILTER_EDGEDETECT],
+    "gaussian"   => ["Gaussian blur", IMG_FILTER_GAUSSIAN_BLUR],
+    "pixelate"   => ["Pixelate", IMG_FILTER_PIXELATE],
+    "mean"       => ["Mean removal", IMG_FILTER_MEAN_REMOVAL],
+    "smooth"     => ["Smooth", IMG_FILTER_SMOOTH],
+    "selective"  => ["Selective blur", IMG_FILTER_SELECTIVE_BLUR],
+    "scatter"    => ["Scatter", IMG_FILTER_SCATTER],
 ];
 $filters_select = "";
-foreach ($filters as $filter => $description) {
+foreach ($filters as $name => $filter) {
     $filters_select .= '
         <label class="form-selectgroup-item">
-            <input type="checkbox" name="name" value="'.$filter.'" class="form-selectgroup-input" />
-            <span class="form-selectgroup-label">'.$description.'</span>
+            <input type="checkbox" name="name" value="'.$name.'" class="form-selectgroup-input" />
+            <span class="form-selectgroup-label">'.$filter[0].'</span>
         </label>
     ';
 }
@@ -122,15 +138,6 @@ $fonts     = recursiveScan($font_path);
 if (empty($fonts)) {
     die("No fonts found in $font_path");
 }
-$font_dropdown = "";
-foreach ($fonts as $font) {
-    if ($defaults['font'] == $font) {
-        $font_dropdown .= "<option value=\"$font\" selected>$font</option>";
-        continue;
-    }
-    $font_name = str_replace(".ttf", "", basename($font));
-    $font_dropdown .= "<option value=\"$font\">$font_name</option>";
-}
 
 /* =========================== NOTE: Defaults ========================== */
 $defaults = [
@@ -150,7 +157,19 @@ $defaults = [
         "font"           => $fonts[mt_rand(0, count($fonts) - 1)],
         "font_size"      => 30,
         "format"         => "png",
+        "filter"         => [],
+        "filter_args"    => [],
 ];
+
+$font_dropdown = "";
+foreach ($fonts as $font) {
+    if ($defaults['font'] == $font) {
+        $font_dropdown .= "<option value=\"$font\" selected>$font</option>";
+        continue;
+    }
+    $font_name = str_replace(".ttf", "", basename($font));
+    $font_dropdown .= "<option value=\"$font\">$font_name</option>";
+}
 
 $width          = isset($_GET['width']) ? $_GET['width'] : $defaults['width'];
 $height         = isset($_GET['height']) ? $_GET['height'] : $defaults['height'];
@@ -166,3 +185,5 @@ $color          = isset($_GET['color']) ? $_GET['color'] : $defaults['color'];
 $border         = isset($_GET['border']) ? $_GET['border'] : $defaults['border'];
 $border_color   = isset($_GET['border_color']) ? $_GET['border_color'] : $defaults['border_color'];
 $format         = isset($_GET['format']) ? $_GET['format'] : $defaults['format'];
+$filter         = isset($_GET['filter']) ? $_GET['filter'] : [];
+$filter_args    = isset($_GET['filter_args']) ? $_GET['filter_args'] : [];
