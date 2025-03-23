@@ -24,6 +24,26 @@ $classes = [
     "card-body"   => "card-body border border-secondary text-bg-dark",
 ];
 
+/* ========================= NOTE: Size presets ======================== */
+$size_presets = [
+    "small"     => ["width" => 100, "height" => 100],
+    "medium"    => ["width" => 250, "height" => 250],
+    "large"     => ["width" => 500, "height" => 500],
+    "portrait"  => ["width" => 250, "height" => 500],
+    "landscape" => ["width" => 500, "height" => 250],
+];
+$size_presets_select = "";
+foreach ($size_presets as $preset => $dimensions) {
+    $width  = $dimensions['width'];
+    $height = $dimensions['height'];
+    $size_presets_select .= '
+        <label class="form-selectgroup-item">
+            <input type="radio" name="name" value="'.$preset.'" class="form-selectgroup-input size-preset" />
+            <span class="form-selectgroup-label">'.$preset.' ('.$width.'x'.$height.')</span>
+        </label>
+    ';
+}
+
 /* ======================== NOTE: Image formats ======================== */
 $image_formats = [
     "png",
@@ -65,7 +85,7 @@ $filters_select = "";
 foreach ($filters as $filter => $description) {
     $filters_select .= '
         <label class="form-selectgroup-item">
-            <input type="radio" name="name" value="'.$filter.'" class="form-selectgroup-input" />
+            <input type="checkbox" name="name" value="'.$filter.'" class="form-selectgroup-input" />
             <span class="form-selectgroup-label">'.$description.'</span>
         </label>
     ';

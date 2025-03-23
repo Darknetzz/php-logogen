@@ -55,6 +55,16 @@
                         </span>
                     </div>
 
+                    <div class="mb-3 input-row">
+                        <span class="input-row-name"><label class="form-label mt-3" for="size">Size Presets</label></span>
+                        <span class="input-row-input">
+                            <div class="form-selectgroup">
+                                <?= $size_presets_select ?>
+                            </div>
+                        </span>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -144,10 +154,10 @@
 
                     <div class="mb-1 input-row">
                         <span class="input-row-name"><label class="form-label" for="border_color">Border Color:</label></span>
-
-                        <span class="input-row-input">
+                        <div class="mb-3 input-row input-group">
+                            <span class="input-group-text" for="background">Border Color</span>
                             <?= colorInput("border_color", $defaults["border_color"]) ?>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -176,9 +186,6 @@
                         </div>
                     </span>
                 </div>
-                <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
-                <button type="button" class="btn btn-dark randomize-all">🎲</button>
-
                 </div>
             </div>
         </form>
@@ -186,7 +193,8 @@
         <div class="<?= $classes['card'] ?> mt-3">
             <h3 class="<?= $classes['card-header'] ?>">Image Preview</h3>
             <div class="<?= $classes['card-body'] ?>">
-                <h4>Generated Image</h4>
+            <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
+            <button type="button" class="btn btn-dark randomize-all">🎲</button>
                 <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
                 <div style="mt-2" id="generatedImage"></div>
             </div>
@@ -207,6 +215,14 @@
 
 <script>
 $(document).ready(function() {
+    $("#size-presets input").change(function() {
+        var preset = $(this).val();
+        var width = <?= json_encode($size_presets) ?>[preset].width;
+        var height = <?= json_encode($size_presets) ?>[preset].height;
+        $("#width").val(width);
+        $("#height").val(height);
+        $("#generateBtn").click();
+    });
     $("#logogenform").on("input", function() {
         $("#generateBtn").click();
     });
