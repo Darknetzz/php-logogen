@@ -24,12 +24,11 @@
 
     <div class="container p-5">
 
-        <img class="m-2 p-2" src="banner.png" alt="LogoGen" class="img-fluid" style="max-width: 100%; height: auto;">
+        <img src="banner.png" alt="LogoGen" class="img-fluid m-2" style="width: 100%; height: auto;">
 
-        <!-- <h1 class="m-5 p-5 text-warning">LogoGen</h1> -->
         <form id="logogenform" action="index.php" method="post">
 
-            <table class="table">
+            <table class="table table-default">
 
 
                 <thead>
@@ -48,19 +47,15 @@
                     </tr>
                     <tr>
                         <th <?= $classes['input-title'] ?>>Image Size</th>
-                        <td>
-                            <div class="row">
+                        <td class="row">
                                 <div class="col input-group">
-                                    <input type="number" class="form-control" name="width" id="width"
-                                        value="<?= $defaults["width"] ?>">
+                                    <input type="number" class="form-control" name="width" id="width" value="<?= $defaults["width"] ?>">
                                     <span class="input-group-text">px</span>
                                 </div>
                                 <div class="col input-group">
-                                    <input type="number" class="form-control" name="height" id="height"
-                                        value="<?= $defaults["height"] ?>">
+                                    <input type="number" class="form-control" name="height" id="height" value="<?= $defaults["height"] ?>">
                                     <span class="input-group-text">px</span>
                                 </div>
-                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -126,7 +121,7 @@
                                     </span>
                                 </div>
                                 <div class="col">
-                                    <span class="input-row-input input-group">
+                                    <span class="input-group">
                                         <span class="input-group-text">Y</span>
                                         <input type="number" class="form-control" name="text_pos_y" id="text_pos_y"
                                             value="" placeholder="Default is image_height / 2">
@@ -146,7 +141,7 @@
                     <tr>
                         <th <?= $classes['input-title'] ?>>Text Color</th>
                         <td>
-                            <span class="input-row-input input-group">
+                            <span class="input-group">
                                 <?= colorInput("color", $defaults["color"]) ?>
                             </span>
                         </td>
@@ -210,20 +205,15 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
-
-
-                <thead>
-                    <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
-                </thead>
-                <tbody>
+                    
+                    
                     <tr>
                         <th <?= $classes['input-title'] ?>>Output</td>
                         <td>
                             <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
                             <button type="button" class="btn btn-dark randomize-all">🎲</button>
                             <a id="openImage" class="badge bg-primary" style="display:none;" target="_blank">Open Image</a>
-                            <div style="mt-2" id="generatedImage"></div>
+                            <div style="mt-2" id="generatedImage">Image will appear here.</div>
                         </td>
                     </tr>
                 </tbody>
