@@ -148,7 +148,12 @@
 
                 <thead>
                     <tr>
-                        <th <?= $classes['table-title'] ?>>Border</th>
+                        <th <?= $classes['table-title'] ?>>
+                            <label for="enablebordercheckbox" class="form-check form-switch form-switch-3">
+                                Border 
+                                <input class="form-check-input" type="checkbox" name="enableborder" id="enablebordercheckbox">
+                            </label>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -219,7 +224,7 @@
                         </th>
                         <td>
                             <div style="mt-2" id="generatedImage">Image will appear here.</div>
-                            <a id="openImage" target="_blank" class="badge text-bg-info" style="display: none;">Open Image</a>
+                            <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open Image</a>
                         </td>
                     </tr>
                 </tbody>
