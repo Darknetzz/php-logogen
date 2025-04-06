@@ -33,10 +33,43 @@
 
             <table class="table table-default">
 
+                <thead <?= $classes['thead'] ?>>
+                    <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Output Format</th>
+                        <td>
+                            <div class="form-selectgroup">
+                                <?= $image_formats_select ?>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>
+                            Output
+                            <!--
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
+                                <button type="button" class="btn btn-dark randomize-all">🎲</button>
+                            </div>
+                            -->
+                        </th>
+                        <td>
+                            <a id="openImage" target="_blank">
+                                <div style="mt-2" id="generatedImage" style="display: none;">Image will appear here.</div>
+                            </a>
+                            <!-- <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open in new tab</a> -->
+                        </td>
+                    </tr>
+                </tbody>
 
                 <thead <?= $classes['thead'] ?>>
                     <tr>
-                        <th <?= $classes['table-title'] ?>>Image Size</th>
+                        <th <?= $classes['table-title'] ?>>Image</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -205,40 +238,6 @@
                     </tr>
                 </tbody>
 
-
-                <thead <?= $classes['thead'] ?>>
-                    <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th <?= $classes['input-title'] ?>>Output Format</th>
-                        <td>
-                            <div class="form-selectgroup">
-                                <?= $image_formats_select ?>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    
-                    <tr>
-                        <th <?= $classes['input-title'] ?>>
-                            Output
-                            <!--
-                            <br>
-                            <div class="btn-group">
-                                <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
-                                <button type="button" class="btn btn-dark randomize-all">🎲</button>
-                            </div>
-                            -->
-                        </th>
-                        <td>
-                            <a id="openImage" target="_blank">
-                                <div style="mt-2" id="generatedImage" style="display: none;">Image will appear here.</div>
-                            </a>
-                            <!-- <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open in new tab</a> -->
-                        </td>
-                    </tr>
-                </tbody>
                 <thead <?= $classes['thead'] ?>>
                     <th <?= $classes['table-title'] ?>>
                         <label for="enabledebugcheckbox" class="form-check form-switch form-switch-3">
@@ -371,22 +370,27 @@ $(document).ready(function() {
 
     /* ============================ toggleInput ============================ */
     $(".toggleInput").click(function() {
-        const targetSelector = $(this).data("target");
+        const toggleBtn      = $(this);
+        const targetSelector = toggleBtn.data("target");
         const targetObj      = $(targetSelector);
-        targetObj.toggle();
+        if (toggleBtn.is(":checked")) {
+            targetObj.fadeIn(500);
+            return;
+        }
+        targetObj.fadeOut(500);
     });
 
     /* ============================= toggleBtn ============================= */
-    $(".toggleBtn").click(function() {
-        const targetSelector = $(this).data("target");
-        const targetObj      = $(targetSelector);
-        targetObj.toggle();
-        if (targetObj.is(":visible")) {
-            $(this).text("Hide");
-            return;
-        }
-        $(this).text("Show");
-    });
+    // $(".toggleBtn").click(function() {
+    //     const targetSelector = $(this).data("target");
+    //     const targetObj      = $(targetSelector);
+    //     targetObj.toggle();
+    //     if (targetObj.is(":visible")) {
+    //         $(this).text("Hide");
+    //         return;
+    //     }
+    //     $(this).text("Show");
+    // });
 
     generateImage();
 

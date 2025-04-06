@@ -22,8 +22,8 @@ $classes = [
     "card"        => "card text-bg-dark border border-secondary mb-3",
     "card-header" => "card-header text-bg-secondary",
     "card-body"   => "card-body border border-secondary text-bg-dark",
-    "table-title" => 'class="text-bg-primary" colspan="100%"',
-    "input-title" => 'class="text-bg-dark"',
+    "table-title" => 'class="bg-dark text-warning p-3" colspan="100%" style="font-size:2rem;"',
+    "input-title" => 'class="text-info"',
     "thead"       => 'class="mt-5"',
 ];
 
@@ -241,6 +241,11 @@ $fonts     = recursiveScan($font_path);
 if (empty($fonts)) {
     die("No fonts found in $font_path");
 }
+$default_font = "fonts/MapleMonoNormalNL-Regular.ttf";
+if (!in_array($default_font, $fonts)) {
+    // $default_font = $fonts[mt_rand(0, count($fonts) - 1)];
+    die("Default font not found in $font_path");
+}
 
 /* =========================== NOTE: Defaults ========================== */
 $defaults = [
@@ -252,13 +257,13 @@ $defaults = [
         "text"           => "Insert text here...",
         "text_pos_x"     => 0,
         "text_pos_y"     => 0,
-        "text_rotation"     => 0,
+        "text_rotation"  => 0,
         "background"     => "#".sprintf('%06X', mt_rand(0, 0xFFFFFF)),
         "color"          => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
         "border"         => 0,
         "border_color"   => $default_color,
-        "font"           => $fonts[mt_rand(0, count($fonts) - 1)],
-        "font_size"      => 30,
+        "font"           => $default_font,
+        "font_size"      => 15,
         "format"         => "png",
         "filter"         => [],
         "filter_args"    => [],
