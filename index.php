@@ -24,7 +24,10 @@
 
     <div class="container p-5">
 
+        <!--
         <img src="banner.png" alt="LogoGen" class="img-fluid m-2" style="width: 100%; height: auto;">
+        -->
+        <h1 class="text-center text-success">LogoGen</h1>
 
         <form id="logogenform" action="index.php" method="post">
 
