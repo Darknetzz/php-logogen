@@ -31,8 +31,8 @@
             <table class="table table-default">
 
 
-                <thead>
-                    <tr class="table-secondary">
+                <thead <?= $classes['thead'] ?>>
+                    <tr>
                         <th <?= $classes['table-title'] ?>>Image Size</th>
                     </tr>
                 </thead>
@@ -78,8 +78,7 @@
                     </tr>
                 </tbody>
 
-
-                <thead>
+                <thead <?= $classes['thead'] ?>>
                     <tr>
                         <th <?= $classes['table-title'] ?>>Text</th>
                     </tr>
@@ -146,17 +145,17 @@
                 </tbody>
 
 
-                <thead>
+                <thead <?= $classes['thead'] ?>>
                     <tr>
                         <th <?= $classes['table-title'] ?>>
                             <label for="enablebordercheckbox" class="form-check form-switch form-switch-3">
                                 Border 
-                                <input class="form-check-input" type="checkbox" name="enableborder" id="enablebordercheckbox">
+                                <input class="form-check-input toggleInput" type="checkbox" name="enableborder" id="enablebordercheckbox" data-target=".border-inputs">
                             </label>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="border-inputs" style="display: none;">
                     <tr>
                         <th <?= $classes['input-title'] ?>>Border Size</th>
                         <td>
@@ -178,12 +177,17 @@
                 </tbody>
 
 
-                <thead>
+                <thead <?= $classes['thead'] ?>>
                     <tr>
-                        <th <?= $classes['table-title'] ?>>Filters</th>
+                        <th <?= $classes['table-title'] ?>>
+                            <label for="enablebordercheckbox" class="form-check form-switch form-switch-3">
+                                Filters 
+                                <input class="form-check-input toggleInput" type="checkbox" name="enablefilters" id="enablefilterscheckbox" data-target=".filters-inputs">
+                            </label>
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="filters-inputs" style="display: none;">
                     <tr>
                         <th <?= $classes['input-title'] ?>>Filters</th>
                         <td>
@@ -199,7 +203,7 @@
                 </tbody>
 
 
-                <thead>
+                <thead <?= $classes['thead'] ?>>
                     <tr><th <?= $classes['table-title'] ?>>Output</th></tr>
                 </thead>
                 <tbody>
@@ -216,20 +220,31 @@
                     <tr>
                         <th <?= $classes['input-title'] ?>>
                             Output
+                            <!--
                             <br>
                             <div class="btn-group">
                                 <button type="button" id="generateBtn" type="submit" class="btn btn-primary">Generate</button>
                                 <button type="button" class="btn btn-dark randomize-all">🎲</button>
                             </div>
+                            -->
                         </th>
                         <td>
-                            <div style="mt-2" id="generatedImage">Image will appear here.</div>
-                            <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open Image</a>
+                            <a id="openImage" target="_blank">
+                                <div style="mt-2" id="generatedImage" style="display: none;">Image will appear here.</div>
+                            </a>
+                            <!-- <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open in new tab</a> -->
                         </td>
                     </tr>
                 </tbody>
-                <thead><th <?= $classes['table-title'] ?>>Debug</th></tr>
-                <tbody>
+                <thead <?= $classes['thead'] ?>>
+                    <th <?= $classes['table-title'] ?>>
+                        <label for="enabledebugcheckbox" class="form-check form-switch form-switch-3">
+                            Debug 
+                            <input class="form-check-input toggleInput" type="checkbox" name="enabledebug" id="enabledebugcheckbox" data-target=".debug">
+                        </label>
+                    </th></tr>
+                </thead>
+                <tbody style="display: none;" class="debug">
                     <tr>
                         <th <?= $classes['input-title'] ?>>Debug</th>
                         <td>
@@ -246,6 +261,68 @@
 
 <script>
 $(document).ready(function() {
+
+        /* ===================================================================== */
+        /*                             generateImage                             */
+        /* ===================================================================== */
+        function generateImage() {
+            const defaults       = <?= json_encode($defaults) ?>;
+            var   width          = $("#width").val() || defaults.width;
+            var   height         = $("#height").val() || defaults.height;
+            var   image_rotation = $("#image_rotation").val() || defaults.image_rotation;
+            var   text           = $("#text").val() || defaults.text;
+            var   text_rotation  = $("#text_rotation").val() || defaults.text_rotation;
+            var   font           = $("#font").val() || defaults.font;
+            var   font_size      = $("#font_size").val() || defaults.font_size;
+            var   text_pos_x     = $("#text_pos_x").val() || defaults.text_pos_x;
+            var   text_pos_y     = $("#text_pos_y").val() || defaults.text_pos_y;
+            var   background     = $("#background").val() || defaults.background;
+            var   color          = $("#color").val() || defaults.color;
+            var   border         = $("#border").val() || defaults.border;
+            var   border_color   = $("#border_color").val() || defaults.border_color;
+            var   format         = $("#format").val() || defaults.format;
+            var   filter         = $("#filter").val() || defaults.filter;
+            var   filter_args    = $("#filter_args").val() || defaults.filter_args;
+            const data           = {
+                "defaults"      : defaults,
+                "width"         : width,
+                "height"        : height,
+                "text"          : text,
+                "text_rotation" : text_rotation,
+                "font"          : font,
+                "font_size"     : font_size,
+                "text_pos_x"    : text_pos_x,
+                "text_pos_y"    : text_pos_y,
+                "background"    : background,
+                "color"         : color,
+                "border"        : border,
+                "border_color"  : border_color,
+                "format"        : format,
+                "filter"        : filter,
+                "filter_args"   : filter_args,
+                "image_rotation": image_rotation
+            };
+
+            var params    = $.param(data);
+            var url       = "gen.php?" + params;
+            var debug_url = "gen.php?debug=1&" + params;
+
+            $("#openImage").attr("href", url).show();
+
+            $.get(url, function(data) {
+                $("#generatedImage").html(`<img src="${url}" alt="${text}">`);
+                console.log("Image generated successfully");
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Error generating image:", errorThrown);
+            });
+
+            $.get(debug_url, function(data) {
+                // console.log("Debug data:", data);
+                $("#debug").html("<h3>Debug Data</h3>" + data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error("Error fetching debug data:", errorThrown);
+            });
+    }
 
     /* ============================ filter-check =========================== */
     $(".filter-check").on('click', function() {
@@ -264,85 +341,51 @@ $(document).ready(function() {
         var height = $(this).data("height");
         $("#width").val(width);
         $("#height").val(height);
-        $("#generateBtn").click();
+        generateImage();
     });
     $("#logogenform").on("input", function() {
-        $("#generateBtn").click();
+        generateImage();
     });
-    $("#generateBtn").click(function() {
-        const defaults       = <?= json_encode($defaults) ?>;
-        var   width          = $("#width").val() || defaults.width;
-        var   height         = $("#height").val() || defaults.height;
-        var   image_rotation = $("#image_rotation").val() || defaults.image_rotation;
-        var   text           = $("#text").val() || defaults.text;
-        var   text_rotation  = $("#text_rotation").val() || defaults.text_rotation;
-        var   font           = $("#font").val() || defaults.font;
-        var   font_size      = $("#font_size").val() || defaults.font_size;
-        var   text_pos_x     = $("#text_pos_x").val() || defaults.text_pos_x;
-        var   text_pos_y     = $("#text_pos_y").val() || defaults.text_pos_y;
-        var   background     = $("#background").val() || defaults.background;
-        var   color          = $("#color").val() || defaults.color;
-        var   border         = $("#border").val() || defaults.border;
-        var   border_color   = $("#border_color").val() || defaults.border_color;
-        var   format         = $("#format").val() || defaults.format;
-        var   filter         = $("#filter").val() || defaults.filter;
-        var   filter_args    = $("#filter_args").val() || defaults.filter_args;
-        const data           = {
-            "defaults"      : defaults,
-            "width"         : width,
-            "height"        : height,
-            "text"          : text,
-            "text_rotation" : text_rotation,
-            "font"          : font,
-            "font_size"     : font_size,
-            "text_pos_x"    : text_pos_x,
-            "text_pos_y"    : text_pos_y,
-            "background"    : background,
-            "color"         : color,
-            "border"        : border,
-            "border_color"  : border_color,
-            "format"        : format,
-            "filter"        : filter,
-            "filter_args"   : filter_args,
-            "image_rotation": image_rotation
-        };
+    // $("#generateBtn").click(function() {
+    //     generateImage();
+    // });
 
-        var params = $.param(data);
-        var url = "gen.php?" + params;
-        var debug_url = "gen.php?debug=1&" + params;
-
-        $("#openImage").attr("href", url).show();
-
-        $.get(url, function(data) {
-            $("#generatedImage").html(`<img src="${url}" alt="${text}">`);
-            console.log("Image generated successfully");
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Error generating image:", errorThrown);
-        });
-
-        $.get(debug_url, function(data) {
-            // console.log("Debug data:", data);
-            $("#debug").html("<h3>Debug Data</h3>" + data);
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Error fetching debug data:", errorThrown);
-        });
-    });
-
+    /* ========================== randomize-color ========================== */
     $(".randomize-color").click(function() {
         const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
         $(this).prev("input").val(randomColor);
-        $("#generateBtn").click();
+        generateImage();
     });
 
+    /* =========================== randomize-all =========================== */
     $(".randomize-all").click(function() {
         $(".randomize-color").each(function() {
             const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
             $(this).prev("input").val(randomColor);
-            $("#generateBtn").click();
+            generateImage();
         });
     });
 
-    $("#generateBtn").click();
+    /* ============================ toggleInput ============================ */
+    $(".toggleInput").click(function() {
+        const targetSelector = $(this).data("target");
+        const targetObj      = $(targetSelector);
+        targetObj.toggle();
+    });
+
+    /* ============================= toggleBtn ============================= */
+    $(".toggleBtn").click(function() {
+        const targetSelector = $(this).data("target");
+        const targetObj      = $(targetSelector);
+        targetObj.toggle();
+        if (targetObj.is(":visible")) {
+            $(this).text("Hide");
+            return;
+        }
+        $(this).text("Show");
+    });
+
+    generateImage();
 
 });
 </script>

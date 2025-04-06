@@ -22,8 +22,9 @@ $classes = [
     "card"        => "card text-bg-dark border border-secondary mb-3",
     "card-header" => "card-header text-bg-secondary",
     "card-body"   => "card-body border border-secondary text-bg-dark",
-    "table-title" => 'class="bg-secondary text-bg-dark" colspan="100%"',
+    "table-title" => 'class="text-bg-primary" colspan="100%"',
     "input-title" => 'class="text-bg-dark"',
+    "thead"       => 'class="mt-5"',
 ];
 
 /* ========================= NOTE: Size presets ======================== */
@@ -47,24 +48,32 @@ foreach ($size_presets as $preset => $dimensions) {
 }
 
 /* ======================== NOTE: Image formats ======================== */
+$default_image_format = "png";
 $image_formats = [
-    "png",
-    "jpg",
-    "jpeg",
-    "gif",
-    "webp",
-    "bmp",
-    "wbmp",
-    "xbm",
-    "tiff",
-    "gd",
-    "gd2",
+    "png"  => "image/png",
+    "jpg"  => "image/jpeg",
+    "jpeg" => "image/jpeg",
+    "gif"  => "image/gif",
+    "webp" => "image/webp",
+    "bmp"  => "image/bmp",
+    "wbmp" => "image/vnd.wap.wbmp",
+    "xbm"  => "image/xbm",
+    "tiff" => "image/tiff",
+    "gd"   => "image/gd",
+    "gd2"  => "image/gd2",
 ];
+if (!isset($_GET['format']) || !in_array($_GET['format'], $image_formats)) {
+    $_GET['format'] = $default_image_format;
+}
 $image_formats_select = "";
-foreach ($image_formats as $format) {
+foreach ($image_formats as $format => $mime) {
+    $checked = "";
+    if ($format == $default_image_format) {
+        $checked = "checked";
+    }
     $image_formats_select .= '
         <label class="form-selectgroup-item">
-            <input type="radio" name="name" value="'.$format.'" class="form-selectgroup-input" />
+            <input type="radio" name="name" value="'.$format.'" class="form-selectgroup-input" '.$checked.' />
             <span class="form-selectgroup-label">'.$format.'</span>
         </label>
     ';
