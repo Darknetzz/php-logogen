@@ -53,7 +53,7 @@ $shapes = [
     "rounded"   => "Rounded",
     "circle"    => "Circle",
 ];
-$shapes_select = "";
+$shapes_select = "<div class='form-selectgroup'>";
 foreach ($shapes as $shape => $label) {
     $checked = "";
     if ($shape == "rectangle") {
@@ -66,6 +66,7 @@ foreach ($shapes as $shape => $label) {
         </label>
     ';
 }
+$shapes_select .= "</div>";
 
 /* ======================== NOTE: Image formats ======================== */
 $default_image_format = "png";
