@@ -13,9 +13,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/tabler.min.css" rel="stylesheet">
+    <!-- <link href="css/tabler.min.css" rel="stylesheet"> -->
     <script src="js/jquery.min.js"></script>
-    <script src="js/tabler.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/core@1.3.2/dist/css/tabler.min.css" />
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tabler/core@1.3.2/dist/js/tabler.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <title>Image Generator</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -65,9 +70,9 @@
                             -->
                         </th>
                         <td>
-                            <a id="openImage" target="_blank">
+                            <!-- <a id="openImage" target="_blank"> -->
                                 <div style="mt-2" id="generatedImage" style="display: none;">Image will appear here.</div>
-                            </a>
+                            <!-- </a> -->
                             <!-- <a id="openImage" target="_blank" class="m-2 badge text-bg-info" style="display: none;">Open in new tab</a> -->
                         </td>
                     </tr>
@@ -318,12 +323,20 @@ $(document).ready(function() {
 
             $("#openImage").attr("href", url).show();
 
+            outputLinks = `
+                <br>
+                <a href="${url}" target="_blank" class="m-2 btn btn-default"><?= icon('box-arrow-up-right') ?> Open in new tab</a>
+                <a href="${url}" download class="m-2 btn btn-default"><?= icon('download') ?> Download</a>
+            `;
+
             $.get(url, function(data) {
-                $("#generatedImage").html(`<img src="${url}" alt="${text}">`);
+                $("#generatedImage").html(`<img src="${url}" alt="${text}">` + outputLinks);
                 console.log("Image generated successfully");
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.error("Error generating image:", errorThrown);
             });
+
+            $("#generatedImage").append(outputLinks);
 
             $.get(debug_url, function(data) {
                 // console.log("Debug data:", data);
