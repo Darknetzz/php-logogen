@@ -24,7 +24,7 @@ function hex2rgb($hex) {
 /* ===================================================================== */
 /*                         FUNCTION: createImage                         */
 /* ===================================================================== */
-function createImage($height = 100, $width = 100, $background = '#000000', $angle = 0) {
+function createImage($height = 100, $width = 100, $background = '#000000', $angle = 0, $shape = "rectangle") {
 
     try {
         if (!is_numeric($height) || !is_numeric($width)) {
@@ -40,13 +40,43 @@ function createImage($height = 100, $width = 100, $background = '#000000', $angl
     // Create a blank image
     $image = imagecreatetruecolor($width, $height);
 
+    // Enable alpha blending and save full alpha channel information
+    imagealphablending($image, false);
+    imagesavealpha($image, true);
+
     // Set background color
     $bg_rgb = hex2rgb($background);
-    $bg     = imagecolorallocate($image, $bg_rgb[0], $bg_rgb[1], $bg_rgb[2]);
-    imagefill($image, 0, 0, $bg);
+    $bg     = imagecolorallocatealpha($image, $bg_rgb[0], $bg_rgb[1], $bg_rgb[2], 0);
+
+    // Fill with transparent background first
+    imagefill($image, 0, 0, imagecolorallocatealpha($image, 0, 0, 0, 127));
+
+    if ($shape == "circle") {
+        // Draw a filled circle
+        $divisor = 2;
+        $radius = min($width, $height) / $divisor;
+        imagefilledellipse($image, $width / 2, $height / 2, $radius * 2, $radius * 2, $bg);
+    } elseif ($shape == "rounded") {
+        // Draw a filled rounded rectangle
+        $divisor = 1.5;
+        $radius = min($width, $height) / $divisor;
+        imagefilledellipse($image, $width / 2, $height / 2, $radius * 2, $radius * 2, $bg);
+    } elseif ($shape == "rectangle" || empty($shape)) {
+        // Fill the image with the background color
+        $divisor = 1;
+        $radius = min($width, $height) / $divisor;
+        imagefilledrectangle($image, 0, 0, $width - 1, $height - 1, $bg);
+    } else {
+        die("Unsupported shape: $shape");
+    }
+
 
     // Rotate the image if specified
-    imagerotate($image, $angle, 0);
+    if ($angle != 0) {
+        $rotated = imagerotate($image, $angle, imagecolorallocatealpha($image, 0, 0, 0, 127));
+        imagedestroy($image);
+        $image = $rotated;
+    }
 
     return $image;
 }

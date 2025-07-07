@@ -47,6 +47,26 @@ foreach ($size_presets as $preset => $dimensions) {
     ';
 }
 
+/* ============================ NOTE: Shapes =========================== */
+$shapes = [
+    "rectangle" => "Rectangle (default)",
+    "rounded"   => "Rounded",
+    "circle"    => "Circle",
+];
+$shapes_select = "";
+foreach ($shapes as $shape => $label) {
+    $checked = "";
+    if ($shape == "rectangle") {
+        $checked = "checked";
+    }
+    $shapes_select .= '
+        <label class="form-selectgroup-item">
+            <input type="radio" name="shape" value="'.$shape.'" class="form-selectgroup-input shape-radio" '.$checked.' />
+            <span class="form-selectgroup-label">'.$label.'</span>
+        </label>
+    ';
+}
+
 /* ======================== NOTE: Image formats ======================== */
 $default_image_format = "png";
 $image_formats = [
@@ -260,6 +280,7 @@ $defaults = [
         "text_rotation"  => 0,
         "background"     => "#".sprintf('%06X', mt_rand(0, 0xFFFFFF)),
         "color"          => ($default_color = "#".sprintf('%06X', mt_rand(0, 0xFFFFFF))),
+        "shape"          => "rectangle", // rectangle, rounded, circle
         "border"         => 0,
         "border_color"   => $default_color,
         "font"           => $default_font,
@@ -290,6 +311,7 @@ $text_pos_x     = isset($_GET['text_pos_x']) ? $_GET['text_pos_x'] : $defaults['
 $text_pos_y     = isset($_GET['text_pos_y']) ? $_GET['text_pos_y'] : $defaults['text_pos_y'];
 $background     = isset($_GET['background']) ? $_GET['background'] : $defaults['background'];
 $color          = isset($_GET['color']) ? $_GET['color'] : $defaults['color'];
+$shape          = isset($_GET['shape']) ? $_GET['shape'] : $defaults['shape'];
 $border         = isset($_GET['border']) ? $_GET['border'] : $defaults['border'];
 $border_color   = isset($_GET['border_color']) ? $_GET['border_color'] : $defaults['border_color'];
 $format         = isset($_GET['format']) ? $_GET['format'] : $defaults['format'];

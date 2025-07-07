@@ -1,7 +1,7 @@
 <?php
 require_once("includes/_includes.php");
 
-$image = createImage($height, $width, $background, $border);
+$image = createImage($height, $width, $background, $border, $shape);
 $image = addBorder($image, $border, $border_color);
 $image = addText($image, $font, $text, $font_size, $color, $image_rotation, $text_pos_x, $text_pos_y);
 

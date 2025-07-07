@@ -45,6 +45,12 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Image shape</th>
+                        <td>
+                            <?= $shapes_select ?>
+                        </td>
+                    </tr>
                     
                     
                     <tr>
@@ -110,6 +116,37 @@
                             <div class="mb-3 input-row input-group">
                                 <?= colorInput("background", $defaults["background"]) ?>
                             </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <thead <?= $classes['thead'] ?>>
+                    <tr>
+                        <th <?= $classes['table-title'] ?>>
+                            <!-- <label for="enablebordercheckbox" class="form-check form-switch form-switch-3"> -->
+                                Border 
+                                <!-- <input class="form-check-input toggleInput" type="checkbox" name="enableborder" id="enablebordercheckbox" data-target=".border-inputs"> -->
+                            <!-- </label> -->
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="border-inputs">
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Border Size</th>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="border" id="border"
+                                    value="<?= $defaults["border"] ?>">
+                                <span class="input-group-text">px</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th <?= $classes['input-title'] ?>>Border Color</th>
+                        <td>
+                            <span class="input-group">
+                                <?= colorInput("border_color", $defaults["border_color"]) ?>
+                            </span>
                         </td>
                     </tr>
                 </tbody>
@@ -185,38 +222,6 @@
                     <tr>
                         <th <?= $classes['table-title'] ?>>
                             <label for="enablebordercheckbox" class="form-check form-switch form-switch-3">
-                                Border 
-                                <input class="form-check-input toggleInput" type="checkbox" name="enableborder" id="enablebordercheckbox" data-target=".border-inputs">
-                            </label>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="border-inputs" style="display: none;">
-                    <tr>
-                        <th <?= $classes['input-title'] ?>>Border Size</th>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="border" id="border"
-                                    value="<?= $defaults["border"] ?>">
-                                <span class="input-group-text">px</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th <?= $classes['input-title'] ?>>Border Color</th>
-                        <td>
-                            <span class="input-group">
-                                <?= colorInput("border_color", $defaults["border_color"]) ?>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-
-
-                <thead <?= $classes['thead'] ?>>
-                    <tr>
-                        <th <?= $classes['table-title'] ?>>
-                            <label for="enablebordercheckbox" class="form-check form-switch form-switch-3">
                                 Filters 
                                 <input class="form-check-input toggleInput" type="checkbox" name="enablefilters" id="enablefilterscheckbox" data-target=".filters-inputs">
                             </label>
@@ -280,6 +285,7 @@ $(document).ready(function() {
             var   text_pos_y     = $("#text_pos_y").val() || defaults.text_pos_y;
             var   background     = $("#background").val() || defaults.background;
             var   color          = $("#color").val() || defaults.color;
+            var   shape          = $(".shape-radio:checked").val() || defaults.shape;
             var   border         = $("#border").val() || defaults.border;
             var   border_color   = $("#border_color").val() || defaults.border_color;
             var   format         = $("#format").val() || defaults.format;
@@ -297,6 +303,7 @@ $(document).ready(function() {
                 "text_pos_y"    : text_pos_y,
                 "background"    : background,
                 "color"         : color,
+                "shape"         : shape,
                 "border"        : border,
                 "border_color"  : border_color,
                 "format"        : format,
