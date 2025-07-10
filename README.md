@@ -1,7 +1,3 @@
 # logogen
 
-### Todo
-
-- [ ] Fix border???
-- [ ] Adjust text alignment (left, center, right - top, middle, bottom)
-- [ ] Rounded corners
+Check out the [Todo](TODO.md)!
