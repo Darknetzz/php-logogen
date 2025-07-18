@@ -1,4 +1,4 @@
-# logogen
+# php-logogen
 
 A simple way to generate "logos" with text on them.
 
